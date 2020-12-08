@@ -1,11 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { createHttpLink } from "apollo-link-http";
 import App from './App';
+import './index.css';
+import dotenv from "dotenv";
+dotenv.config();
+
+const httpLink = createHttpLink({
+  uri: process.env.SERVER_URL
+});
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache()
+});
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ApolloProvider client={client}>
     <App />
-  </React.StrictMode>,
+  </ApolloProvider>,
   document.getElementById('root')
 );
