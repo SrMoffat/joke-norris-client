@@ -13,7 +13,6 @@ const StyledCategoryCard = styled.div`
     &:hover {
         transform: translateY(-.025rem);
         box-shadow: 0rem .3rem .4rem 0rem rgba(0,0,0,0.1);
-        
     }
     &:active {
         transform: translateY(.025rem);
@@ -35,11 +34,13 @@ const categoryAvatarStyles = {
     justifySelf: "end"
 };
 const CategoryCard = ({ category }) => {
-    console.log("CAT", category);
-    console.log("TYPE", typeof category);
+    const handleCategoryClicked = () => {
+        // TODO: Redirect to category page with random joke 
+        alert("Het");
+    };
     return (
         <StyledCategoryCard>
-            <StyledCategoryCardContent>
+            <StyledCategoryCardContent onClick={handleCategoryClicked}>
                 <StyledCategoryName>{ capitalizeFirstLetter(category) }</StyledCategoryName>
                 <img style={categoryAvatarStyles} src={`/icons/${category}.svg`} alt={`${category}`} />
             </StyledCategoryCardContent>

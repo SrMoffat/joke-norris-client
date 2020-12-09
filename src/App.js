@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 import NavBar from "./components/NavBar";
 import CategorySection from "./components/CategorySection";
 import RandomJokeSection from "./components/RandomJokeSection";

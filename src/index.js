@@ -1,10 +1,14 @@
+import dotenv from "dotenv";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { createHttpLink } from "apollo-link-http";
+
+import LoginPage from "../src/components/LoginPage";
+import SignUpPage from "../src/components/SignUpPage";
 import App from './App';
 import './index.css';
-import dotenv from "dotenv";
 dotenv.config();
 
 const httpLink = createHttpLink({
@@ -17,7 +21,13 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <Router>
+      <Switch>
+        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/signup" component={SignUpPage} />
+        <Route exact path="/home" component={App} />
+      </Switch>
+    </Router>
   </ApolloProvider>,
   document.getElementById('root')
 );
