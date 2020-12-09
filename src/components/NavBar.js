@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import UserSection from "./UserProfile";
 
 const StyledNav = styled.div`
     display: grid;
@@ -26,10 +25,13 @@ const StyledLogoutButton = styled.div`
     color: #F15B24;
     font-size: .8rem;
     font-weight: bold;
+    cursor: pointer;
+    user-select: none;
 `;
 
 const NavBar = ({ currentUser }) => {
     const onLogoutClicked = () => {
+        // TODO: Remove token from localStorage then redirect to "/"
         alert("Herer");
     };
     return (
@@ -41,9 +43,3 @@ const NavBar = ({ currentUser }) => {
     );
 };
 export default NavBar;
-
-
-{/* <div>
-<img src="/logo.png" alt="logo"/>
-<UserSection />
-</div> */}
