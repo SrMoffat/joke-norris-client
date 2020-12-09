@@ -10,6 +10,7 @@ const StyledJokeContainer = styled.div`
 const StyledJoke = styled.div`
     /* overflow-wrap: break-word; */
     font-size: .85rem;
+    color: #6e6e6e;
 `;
 const StyledJokeTime = styled.div`
     justify-self: end;

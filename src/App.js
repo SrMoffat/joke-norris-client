@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import NavBar from "./components/NavBar";
-import CategoryCard from "./components/CategoryCard";
+import CategorySection from "./components/CategorySection";
 import RandomJokeSection from "./components/RandomJokeSection";
 
 const AppWrapper = styled.div`
@@ -22,6 +22,24 @@ const currentUser = {
   username: "4fr0c0d3r",
   email: "email@email.com",
 };
+const categories = [
+  "animal",
+  "career",
+  "celebrity",
+  "dev",
+  "explicit",
+  "fashion",
+  "food",
+  "history",
+  "money",
+  "movie",
+  "music",
+  "political",
+  "religion",
+  "science",
+  "sport",
+  "travel"
+];
 
 function App() {
   return (
@@ -29,7 +47,7 @@ function App() {
       <NavBar currentUser={currentUser}/>
        <AppContainer>
          <RandomJokeSection />
-         <div>Category Container</div>
+        <CategorySection categories={categories} />
        </AppContainer>
     </AppWrapper>
   );

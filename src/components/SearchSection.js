@@ -31,11 +31,11 @@ const StyledSearchButton = styled.button`
     transition: all .1s;
 
     &:hover {
-        transform: translateY(-.2rem);
+        transform: translateY(-.1rem);
         box-shadow: 0rem .3rem .4rem 0rem rgba(0,0,0,0.2);
     }
     &:active {
-        transform: translateY(.1rem);
+        transform: translateY(.05rem);
         box-shadow: 0rem .2rem .2rem 0rem rgba(0,0,0,0.2);
     }
 `;
