@@ -45,7 +45,7 @@ function App() {
     <AppWrapper>
       <NavBar currentUser={currentUser}/>
        <AppContainer>
-         <RandomJokeSection />
+        <RandomJokeSection />
         <CategorySection categories={categories} />
        </AppContainer>
     </AppWrapper>

@@ -7,6 +7,7 @@ import { createHttpLink } from "apollo-link-http";
 
 import LoginPage from "../src/components/LoginPage";
 import SignUpPage from "../src/components/SignUpPage";
+import JokePage from "../src/components/CategoryJoke";
 import App from './App';
 import './index.css';
 dotenv.config();
@@ -26,6 +27,7 @@ ReactDOM.render(
         <Route exact path="/" component={LoginPage} />
         <Route exact path="/signup" component={SignUpPage} />
         <Route exact path="/home" component={App} />
+        <Route exact path="/jokes/:category" component={JokePage} />
       </Switch>
     </Router>
   </ApolloProvider>,
