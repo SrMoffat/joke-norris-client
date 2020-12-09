@@ -37,6 +37,15 @@ const StyledLoginAppName = styled.div`
 const StyledLoginFormContainer = styled.div`
     padding: 1rem;
 `;
+export const InputStyles = {
+    height: "2rem",
+    width: "16rem",
+    margin: ".5rem 0rem",
+    outline: "none",
+    border: ".1rem solid #e6e6e6",
+    borderRadius: ".15rem",
+    paddingLeft: ".5rem"
+};
 const EmailInput = {
     attrs: {
         type: "email",
@@ -44,13 +53,7 @@ const EmailInput = {
         placeholder: "joker@norris.com",
     },
     styles: {
-        height: "2rem",
-        width: "16rem",
-        margin: ".5rem 0rem",
-        outline: "none",
-        border: ".1rem solid #e6e6e6",
-        borderRadius: ".15rem",
-        paddingLeft: ".5rem"
+       ...InputStyles
     }
 };
 const PasswordInput = {
@@ -60,16 +63,10 @@ const PasswordInput = {
         placeholder: "password",
     },
     styles: {
-        height: "2rem",
-        width: "16rem",
-        margin: ".5rem 0rem",
-        outline: "none",
-        border: ".1rem solid #e6e6e6",
-        borderRadius: ".15rem",
-        paddingLeft: ".5rem"
+        ...InputStyles
     }
 };
-const StyledLoginButton = styled.button`
+export const StyledLoginButton = styled.button`
     padding: .5rem;
     margin-top: .5rem;
     margin-right: .5rem;
@@ -92,7 +89,7 @@ const StyledLoginButton = styled.button`
         box-shadow: 0rem .2rem .2rem 0rem rgba(0,0,0,0.2);
     }
 `;
-const SignUpLink = styled.a`
+export const SignUpLink = styled.a`
     text-decoration: none;
     color: #F15B24;
     font-size: .8rem;
