@@ -1,10 +1,14 @@
 import styled from "styled-components";
-import NavBar from "./NavBar";
+import moment from "moment";
+import { NavLink, useParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import { CategoryContext, UserContext } from "../state";
 
-const currentUser = {
-    username: "4fr0c0d3r",
-    email: "email@email.com",
-};
+import { fetchCategoryJokeQuery } from "../graphql"
+
+import NavBar from "./NavBar";
+import { capitalizeFirstLetter } from "../utils";
 
 const AppContainer = styled.section`
   width: 100%;
@@ -16,6 +20,8 @@ const AppContainer = styled.section`
   grid-gap: 1.5rem;
 `;
 const StyledJokeCard = styled.div`
+    min-width: 55rem;
+    min-height: 5rem;
     border: 1px solid #e6e6e6;
     border-radius: .2rem;
     padding: 1rem;
@@ -88,35 +94,48 @@ const CategoryAvatar = {
     marginLeft: 40
 };
 const CategoryJoke = () => {
-    const handleBackClicked = () => {
-        // TODO: Take user to "/home"
-        alert("Hat");
+    const { state: { current }, dispatch } = useContext(CategoryContext);
+    const { state: { user } } = useContext(UserContext);
+    const { category: selected } = useParams();
+    const { data, loading, refetch } = useQuery(fetchCategoryJokeQuery, {
+        variables: {
+            category: current || selected
+        }
+    });
+    const categoryJoke = data?.fetchCategoryJoke;
+    const linkStyle = {
+        textDecoration: "none"
+    };
+    const fetchNewJoke = () => {
+        refetch();
     };
     return (
         <div>
-            <NavBar currentUser={currentUser} />
+            <NavBar currentUser={user} />
             <AppContainer>
                 <StyledCategoryJokeHeader>
-                    <StyledBackButton onClick={handleBackClicked}>
-                        <img style={BackButton} src="/icons/back.svg" alt="back"/>
-                    </StyledBackButton>
+                    <NavLink to={`/home`} style={linkStyle}>
+                        <StyledBackButton>
+                            <img style={BackButton} src="/icons/back.svg" alt="back"/>
+                        </StyledBackButton>
+                    </NavLink>
                     <StyledCategoryDetailsContainer>
                         <div>
                             <StyledCategoryLabel>Category: </StyledCategoryLabel>
-                            <StyledCategoryName>Animal </StyledCategoryName>
+                            <StyledCategoryName>{ capitalizeFirstLetter(current || selected) } </StyledCategoryName>
                         </div>
                         <div>
-                            <img style={CategoryAvatar} src="/icons/animal.svg" alt="back"/>
+                            <img style={CategoryAvatar} src={`/icons/${current || selected }.svg`}alt={`${current || selected}`}/>
                         </div>
                     </StyledCategoryDetailsContainer>
                 </StyledCategoryJokeHeader>
                 <StyledJokeCard>
                     <StyledJokeText>
-                        "The Christmas Tree of Chuck Norris is/has/was: 100 meters tall. 103856 ornaments. 262 stars. 2847687949295 lights. too many presents under it to count. painted with 38583 colors, 683 being shades of green"
+                        "{ categoryJoke?.value }"
                     </StyledJokeText>
-                    <StyledJokeTime>2 days ago</StyledJokeTime>
+                    <StyledJokeTime>{ moment(categoryJoke?.created_at).fromNow() }</StyledJokeTime>
                 </StyledJokeCard>
-                <FetchNewJokeButton>New Joke</FetchNewJokeButton>
+                <FetchNewJokeButton onClick={fetchNewJoke}>New Joke</FetchNewJokeButton>
             </AppContainer>
         </div>
     );

@@ -20,3 +20,17 @@ export const fetchRandomJokeQuery = gql`
         }
     }
 `;
+export const fetchCategoryJokeQuery = gql`
+  query fetchCategoryJoke($category: String!) {
+    fetchCategoryJoke(category: $category) {
+     id
+      url
+      icon_url
+      value
+      categories
+      created_at
+      updated_at
+
+    }
+  }
+`;
