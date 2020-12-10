@@ -11,7 +11,7 @@ import JokePage from "../src/components/CategoryJoke";
 import RequiresAuth from "../src/components/hoc/requiresAuth";
 import App from './App';
 
-import { UserContextProvider } from "./state";
+import { UserContextProvider, CategoryContextProvider } from "./state";
 
 import './index.css';
 
@@ -26,6 +26,7 @@ const client = new ApolloClient({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <UserContextProvider>
+     <CategoryContextProvider>
       <Router>
         <Switch>
           <Route exact path="/" component={LoginPage} />
@@ -34,6 +35,7 @@ ReactDOM.render(
           <RequiresAuth exact path="/jokes/:category" component={JokePage} />
         </Switch>
       </Router>
+     </CategoryContextProvider>
     </UserContextProvider>
   </ApolloProvider>,
   document.getElementById('root')
