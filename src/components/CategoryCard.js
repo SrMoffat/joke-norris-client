@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
+import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+
 import { capitalizeFirstLetter } from "../utils";
+import { CategoryContext } from "../state";
 
 const StyledCategoryCard = styled.div`
     border: 1px solid #e6e6e6;
@@ -34,17 +38,26 @@ const categoryAvatarStyles = {
     justifySelf: "end"
 };
 const CategoryCard = ({ category }) => {
+    const { dispatch } = useContext(CategoryContext);
     const handleCategoryClicked = () => {
-        // TODO: Redirect to category page with random joke 
-        alert("Het");
+        dispatch({
+            type: "SET_SELECTED_CATEGORY",
+            payload: category
+        });
+    };
+    const linkStyle = {
+        textDecoration: "none"
     };
     return (
-        <StyledCategoryCard>
-            <StyledCategoryCardContent onClick={handleCategoryClicked}>
-                <StyledCategoryName>{ capitalizeFirstLetter(category) }</StyledCategoryName>
-                <img style={categoryAvatarStyles} src={`/icons/${category}.svg`} alt={`${category}`} />
-            </StyledCategoryCardContent>
-        </StyledCategoryCard>
+        <NavLink to={`/jokes/${category}`} style={linkStyle}>
+            <StyledCategoryCard onClick={handleCategoryClicked}>
+                <StyledCategoryCardContent>
+                    <StyledCategoryName>{ capitalizeFirstLetter(category) }</StyledCategoryName>
+                    <img style={categoryAvatarStyles} src={`/icons/${category}.svg`} alt={`${category}`} />
+                </StyledCategoryCardContent>
+            </StyledCategoryCard>
+        </NavLink>
+        
     );
 };
 

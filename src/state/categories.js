@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 
 export const CategoriesInitialState = {
     categories: [],
-    current: "animal"
+    current: ""
 };
 
 export const CategoryContext = createContext({
