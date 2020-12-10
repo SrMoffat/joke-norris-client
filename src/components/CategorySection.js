@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
+import { useContext } from "react";
+
 import StyledCategoryCard from "./CategoryCard";
+import { CategoryContext } from "../state";
 
 const StyledCategoriesSection = styled.div`
     box-shadow: 0rem .1rem .3rem 0rem rgba(0,0,0,0.2);
@@ -9,9 +12,9 @@ const StyledCategoriesSection = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1rem;
-    /* place-items: center; */
 `;
-const CategorySection = ({ categories }) => {
+const CategorySection = () => {
+    const { state: { categories } } = useContext(CategoryContext);
     return (
         <StyledCategoriesSection>
             {

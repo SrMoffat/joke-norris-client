@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+import { useContext, useEffect } from "react";
+import { useQuery } from "@apollo/client";
+
+import { fetchCategoriesQuery } from "./graphql";
+import { CategoryContext } from "./state";
+
 import NavBar from "./components/NavBar";
 import CategorySection from "./components/CategorySection";
 import RandomJokeSection from "./components/RandomJokeSection";
@@ -17,32 +23,24 @@ const AppContainer = styled.section`
   grid-template-rows: 8rem 1fr;
   grid-gap: 1.5rem;
 `;
-const categories = [
-  "animal",
-  "career",
-  "celebrity",
-  "dev",
-  "explicit",
-  "fashion",
-  "food",
-  "history",
-  "money",
-  "movie",
-  "music",
-  "political",
-  "religion",
-  "science",
-  "sport",
-  "travel"
-];
-
 function App() {
+  const { dispatch } = useContext(CategoryContext);
+  const { data, loading } = useQuery(fetchCategoriesQuery);
+  const categories = data?.fetchCategories.categories;
+  useEffect(() => {
+    if(categories){
+      dispatch({
+        type: "FETCH_CATEGORIES",
+        payload: categories
+      });
+    };
+  }, [categories]);
   return (
     <AppWrapper>
       <NavBar/>
        <AppContainer>
         <RandomJokeSection />
-        <CategorySection categories={categories} />
+        <CategorySection />
        </AppContainer>
     </AppWrapper>
   );
