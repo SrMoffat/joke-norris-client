@@ -1,5 +1,10 @@
 import styled from "styled-components";
+import { useState } from "react";
 
+import { useMutation } from "@apollo/client";
+
+import { signUpMutation } from "../graphql";
+import { successMessage, errorMessage } from "../utils";
 import { InputStyles, StyledLoginButton, SignUpLink }from "./LoginPage";
 
 const StyledSignUpContainer = styled.div`
@@ -36,12 +41,12 @@ const ConfirmPasswordInput = {
     ...PasswordInput,
     attrs: {
         type: "password",
-        name: "confirmpassword",
+        name: "confirmPassword",
         placeholder: "Confirm Password",
     }
 };
 const SignUpButton = () => {
-    return <StyledLoginButton>SignUp</StyledLoginButton>
+    return <StyledLoginButton type="submit">SignUp</StyledLoginButton>
 };
 const SignUpHeader = styled.div`
     border-top-left-radius: .5rem;
@@ -64,9 +69,47 @@ const SignUpFormContainer = styled.div`
     text-align: center;
 `;
 const SignUpPage = () => {
-    const handleLogin = () => {
-        // TODO: Authenticate user
-        // alert("Hey");
+    const [values, setValues] = useState({});
+    const { username, password, confirmPassword } = values;
+    const [accountRequestMutation, { loading }] = useMutation(signUpMutation, { errorPolicy: "none", fetchPolicy: "no-cache" });
+    const handleInputChange = ({ target }) => {
+        const { name, value } = target;
+        const newState = { ...values, [name]: value }
+        setValues(newState);
+    };
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        if(!password || !username){
+            errorMessage("Values cannot be empty");
+        }
+        if(password !== confirmPassword){
+            const passwordError = {
+                field: "password",
+                message: "Password and Confirm Password do not match"
+            };
+            errorMessage(passwordError.message);
+        } else {
+            const variables = {
+                input: {
+                    username,
+                    password
+                }
+            };
+            const { data } = await accountRequestMutation({
+                variables,
+            });
+            const { signUp } = data;
+            const { error, message, user} = signUp;
+            if(error){
+                errorMessage(error.message);
+            } else if(message){
+                successMessage(`${message} as ${user.username}`);
+                setTimeout(function(){ window.location = "/"; }, 2000); // Delay for 2s to allow alert be seen
+            };
+        };
+    };
+    const takeUserToLogin = () => {
+        window.location = "/";
     };
     return (
         <StyledSignUpContainer>
@@ -76,13 +119,12 @@ const SignUpPage = () => {
             </SignUpHeader>
             <SignUpFormContainer>
                 <form onSubmit={handleLogin}>
-                    <input style={UsernameInput.styles} type={UsernameInput.attrs.type} name={UsernameInput.attrs.name} placeholder={UsernameInput.attrs.placeholder} /><br />
-                    <input style={PasswordInput.styles} type={PasswordInput.attrs.type} name={PasswordInput.attrs.name} placeholder={PasswordInput.attrs.placeholder} /><br />
-                    <input style={ConfirmPasswordInput.styles} type={ConfirmPasswordInput.attrs.type} name={ConfirmPasswordInput.attrs.name} placeholder={ConfirmPasswordInput.attrs.placeholder} /><br />
-                    <SignUpButton /> or <SignUpLink>Login</SignUpLink>
+                    <input required onChange={handleInputChange} style={UsernameInput.styles} type={UsernameInput.attrs.type} name={UsernameInput.attrs.name} placeholder={UsernameInput.attrs.placeholder} /><br />
+                    <input required onChange={handleInputChange} style={PasswordInput.styles} type={PasswordInput.attrs.type} name={PasswordInput.attrs.name} placeholder={PasswordInput.attrs.placeholder} /><br />
+                    <input required onChange={handleInputChange} style={ConfirmPasswordInput.styles} type={ConfirmPasswordInput.attrs.type} name={ConfirmPasswordInput.attrs.name} placeholder={ConfirmPasswordInput.attrs.placeholder} /><br />
+                    <SignUpButton /> or <SignUpLink onClick={takeUserToLogin}>Login</SignUpLink>
                 </form>
             </SignUpFormContainer>
-           
         </StyledSignUpContainer>
     );
 };

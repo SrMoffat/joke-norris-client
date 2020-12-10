@@ -8,12 +8,15 @@ import { createHttpLink } from "apollo-link-http";
 import LoginPage from "../src/components/LoginPage";
 import SignUpPage from "../src/components/SignUpPage";
 import JokePage from "../src/components/CategoryJoke";
+import RequiresAuth from "../src/components/hoc/requiresAuth";
 import App from './App';
+
+import { UserContextProvider } from "./state";
+
 import './index.css';
-dotenv.config();
 
 const httpLink = createHttpLink({
-  uri: process.env.SERVER_URL
+  uri: "http://localhost:4000/" // TODO: Add to .env
 });
 const client = new ApolloClient({
   link: httpLink,
@@ -22,14 +25,16 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Router>
-      <Switch>
-        <Route exact path="/" component={LoginPage} />
-        <Route exact path="/signup" component={SignUpPage} />
-        <Route exact path="/home" component={App} />
-        <Route exact path="/jokes/:category" component={JokePage} />
-      </Switch>
-    </Router>
+    <UserContextProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={LoginPage} />
+          <Route exact path="/signup" component={SignUpPage} />
+          <RequiresAuth exact path="/home" component={App} />
+          <RequiresAuth exact path="/jokes/:category" component={JokePage} />
+        </Switch>
+      </Router>
+    </UserContextProvider>
   </ApolloProvider>,
   document.getElementById('root')
 );
