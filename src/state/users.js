@@ -22,7 +22,6 @@ const getUserInitialState = () => {
     return initial;
 };
 
-getUserInitialState();
 export const UserInitialState = getUserInitialState();
 export const UserContext = createContext({
     state: UserInitialState

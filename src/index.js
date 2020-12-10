@@ -11,7 +11,7 @@ import JokePage from "../src/components/CategoryJoke";
 import RequiresAuth from "../src/components/hoc/requiresAuth";
 import App from './App';
 
-import { UserContextProvider, CategoryContextProvider } from "./state";
+import { UserContextProvider, CategoryContextProvider, JokeContextProvider } from "./state";
 
 import './index.css';
 
@@ -27,14 +27,16 @@ ReactDOM.render(
   <ApolloProvider client={client}>
     <UserContextProvider>
      <CategoryContextProvider>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={LoginPage} />
-          <Route exact path="/signup" component={SignUpPage} />
-          <RequiresAuth exact path="/home" component={App} />
-          <RequiresAuth exact path="/jokes/:category" component={JokePage} />
-        </Switch>
-      </Router>
+      <JokeContextProvider>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={LoginPage} />
+            <Route exact path="/signup" component={SignUpPage} />
+            <RequiresAuth exact path="/home" component={App} />
+            <RequiresAuth exact path="/jokes/:category" component={JokePage} />
+          </Switch>
+        </Router>
+      </JokeContextProvider>
      </CategoryContextProvider>
     </UserContextProvider>
   </ApolloProvider>,
