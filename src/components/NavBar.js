@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { useContext } from "react";
+
+import { UserContext } from "../state";
 
 const StyledNav = styled.div`
     display: grid;
@@ -29,15 +32,20 @@ const StyledLogoutButton = styled.div`
     user-select: none;
 `;
 
-const NavBar = ({ currentUser }) => {
+const NavBar = () => {
+    const { state: { user: { username } }, dispatch } = useContext(UserContext);
     const onLogoutClicked = () => {
-        // TODO: Remove token from localStorage then redirect to "/"
-        alert("Herer");
+        localStorage.removeItem("currentUser");
+        dispatch({
+            type: "LOGOUT_USER",
+            payload: null
+        });
+        window.location.href = "/";
     };
     return (
         <StyledNav>
             <StyledLogo />
-            <StyledLoggedInUsername>{ currentUser.username }</StyledLoggedInUsername>
+            <StyledLoggedInUsername>Welcome {username }!</StyledLoggedInUsername>
             <StyledLogoutButton onClick={onLogoutClicked}>Logout</StyledLogoutButton>
         </StyledNav>
     );

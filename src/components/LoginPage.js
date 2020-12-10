@@ -1,4 +1,10 @@
 import styled from "styled-components";
+import { useState, useContext } from "react";
+import { useMutation } from "@apollo/client";
+import { loginMutation } from "../graphql";
+import { successMessage, errorMessage } from "../utils";
+import { UserContext } from "../state";
+
 
 const StyledLoginContainer = styled.div`
     box-shadow: 0rem .1rem .3rem 0rem rgba(0,0,0,0.2);
@@ -46,11 +52,11 @@ export const InputStyles = {
     borderRadius: ".15rem",
     paddingLeft: ".5rem"
 };
-const EmailInput = {
+const UsernameInput = {
     attrs: {
-        type: "email",
-        name: "email",
-        placeholder: "joker@norris.com",
+        type: "text",
+        name: "username",
+        placeholder: "Username",
     },
     styles: {
        ...InputStyles
@@ -60,7 +66,7 @@ const PasswordInput = {
     attrs: {
         type: "password",
         name: "password",
-        placeholder: "password",
+        placeholder: "Password",
     },
     styles: {
         ...InputStyles
@@ -101,9 +107,52 @@ const LoginButton = () => {
 };
 
 const LoginPage = () => {
-    const handleLogin = () => {
-        // TODO: Authenticate user
-        // alert("Hey");
+    const [values, setValues] = useState({});
+    const { username, password } = values;
+    const [loginUser, { loading }] = useMutation(loginMutation);
+    const { dispatch } = useContext(UserContext);
+
+    const handleInputChange = ({ target }) => {
+        const { name, value } = target;
+        const newState = { ...values, [name]: value }
+        setValues(newState);
+    };
+    const handleLogin = async event => {
+        event.preventDefault();
+        if(!password || !username){
+            errorMessage("Values cannot be empty");
+        } else {
+            const variables = {
+                input: {
+                    username,
+                    password
+                }
+            };
+            const { data } = await loginUser({
+                variables,
+            });
+            const { login } = data;
+            const { error, payload } = login;
+            if(error){
+                errorMessage(error.message);
+            } else if(payload){
+                const { message, user, token } = payload;
+                successMessage(`${message} for ${user.username}`);
+                localStorage.setItem("currentUser", JSON.stringify({ ...user, token }, null, 2));
+                dispatch({
+                    type: "LOGIN_USER",
+                    payload: {
+                        authenticated: true,
+                        token,
+                        user,
+                    }
+                });
+                setTimeout(function(){ window.location.href = "/home"; }, 1000); // Delay for 1s to allow alert
+            }
+        };
+    };
+    const takeUserToSignUp = () => {
+        window.location = "/signup";
     };
     return (
         <StyledLoginContainer>
@@ -113,9 +162,9 @@ const LoginPage = () => {
             </StyledLoginSider>
             <StyledLoginFormContainer>
                 <form onSubmit={handleLogin}>
-                    <input style={EmailInput.styles} type={EmailInput.attrs.type} name={EmailInput.attrs.name} placeholder={EmailInput.attrs.placeholder} /><br />
-                    <input style={PasswordInput.styles} type={PasswordInput.attrs.type} name={PasswordInput.attrs.name} placeholder={PasswordInput.attrs.placeholder} /><br />
-                    <LoginButton /> or <SignUpLink>Sign Up</SignUpLink>
+                    <input onChange={handleInputChange} required style={UsernameInput.styles} type={UsernameInput.attrs.type} name={UsernameInput.attrs.name} placeholder={UsernameInput.attrs.placeholder} /><br />
+                    <input onChange={handleInputChange} required style={PasswordInput.styles} type={PasswordInput.attrs.type} name={PasswordInput.attrs.name} placeholder={PasswordInput.attrs.placeholder} /><br />
+                    <LoginButton /> or <SignUpLink onClick={takeUserToSignUp}>Sign Up</SignUpLink>
                 </form>
                 <img style={{ marginTop: 100, float: "right", height: 45, width: 45 }} alt="logo" src="/logo.png"/>
            
