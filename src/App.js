@@ -1,7 +1,14 @@
 import styled from "styled-components";
+import { useContext } from "react";
+import { useQuery } from "@apollo/client";
+
+
 import NavBar from "./components/NavBar";
 import CategorySection from "./components/CategorySection";
 import RandomJokeSection from "./components/RandomJokeSection";
+
+import { CategoryContext } from "./state";
+import { fetchCurrencyQuery } from "./graphql";
 
 const AppWrapper = styled.div`
   overflow-y: scroll;
@@ -41,6 +48,9 @@ const categories = [
 ];
 
 function App() {
+  // const { data, loading } = useQuery(fetchCurrencyQuery);
+  // console.log("LO", loading)
+  // console.log("DA", data)
   return (
     <AppWrapper>
       <NavBar currentUser={currentUser}/>

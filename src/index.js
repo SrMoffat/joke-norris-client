@@ -13,7 +13,7 @@ import './index.css';
 dotenv.config();
 
 const httpLink = createHttpLink({
-  uri: process.env.SERVER_URL
+  uri: "http://localhost:4000/" // TODO: Add to .env
 });
 const client = new ApolloClient({
   link: httpLink,
