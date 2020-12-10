@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { useContext, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 
-import { fetchCategoriesQuery } from "./graphql";
-import { CategoryContext } from "./state";
+import { fetchCategoriesQuery, fetchRandomJokeQuery } from "./graphql";
+import { CategoryContext, JokeContext } from "./state";
 
 import NavBar from "./components/NavBar";
 import CategorySection from "./components/CategorySection";
@@ -25,8 +25,11 @@ const AppContainer = styled.section`
 `;
 function App() {
   const { dispatch } = useContext(CategoryContext);
-  const { data, loading } = useQuery(fetchCategoriesQuery);
+  const { dispatch: dispatchJokeAction } = useContext(JokeContext);
+  const { data, loading, refetch } = useQuery(fetchCategoriesQuery);
+  const { data: randomJokeData, loading: randomJokeLoading, refetch: refetchRandomJoke } = useQuery(fetchRandomJokeQuery);
   const categories = data?.fetchCategories.categories;
+  const randomJoke = randomJokeData?.fetchRandomJoke;
   useEffect(() => {
     if(categories){
       dispatch({
@@ -34,7 +37,21 @@ function App() {
         payload: categories
       });
     };
-  }, [categories]);
+  }, [categories, dispatch]);
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+  useEffect(() => {
+    if(randomJoke){
+      dispatchJokeAction({
+        type: "FETCH_RANDOM_JOKE",
+        payload: randomJoke
+      });
+    };
+  }, [randomJoke, dispatchJokeAction]);
+  useEffect(() => {
+    refetchRandomJoke();
+  }, [refetchRandomJoke]);
   return (
     <AppWrapper>
       <NavBar/>

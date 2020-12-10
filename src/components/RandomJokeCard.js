@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import moment from "moment";
+
+import { useContext } from "react";
+import { JokeContext } from "../state";
 
 const StyledJokeContainer = styled.div`
     justify-self: start;
@@ -6,11 +10,13 @@ const StyledJokeContainer = styled.div`
     grid-template-rows: repeat(2, 1fr);
     padding: 1rem;
     box-shadow: 0rem .1rem .3rem 0rem rgba(0,0,0,0.2);
+    width: 35rem;
 `;
 const StyledJoke = styled.div`
-    /* overflow-wrap: break-word; */
     font-size: .85rem;
     color: #6e6e6e;
+    min-width: 10rem;
+
 `;
 const StyledJokeTime = styled.div`
     justify-self: end;
@@ -20,10 +26,14 @@ const StyledJokeTime = styled.div`
 `;
 
 const RandomJokeCard = () => {
+    const { state: { joke } } = useContext(JokeContext);
+    const { value, created_at } = joke;
+    const publishTime = created_at && moment(created_at).fromNow();
+    const jokeContent = value && value;
     return (
         <StyledJokeContainer>
-            <StyledJoke>The Christmas Tree of Chuck Norris is/has/was: 100 meters tall. 103856 ornaments. 262 stars. 2847687949295 lights. too many presents under it to count. painted with 38583 colors, 683 being shades of green</StyledJoke>
-            <StyledJokeTime>2 days ago</StyledJokeTime>
+            <StyledJoke>{ jokeContent }</StyledJoke>
+            <StyledJokeTime>{ publishTime }</StyledJokeTime>
         </StyledJokeContainer>
     );
 };

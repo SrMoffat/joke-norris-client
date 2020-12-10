@@ -7,3 +7,16 @@ export const fetchCategoriesQuery = gql`
         }
     }
 `;
+export const fetchRandomJokeQuery = gql`
+    query fetchRandomJokeQuery {
+        fetchRandomJoke {
+            id
+            url
+            icon_url
+            value
+            categories
+            created_at
+            updated_at
+        }
+    }
+`;

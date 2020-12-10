@@ -1,2 +1,3 @@
-export * from "./categories"
-export * from "./users"
+export * from "./jokes";
+export * from "./categories";
+export * from "./users";
