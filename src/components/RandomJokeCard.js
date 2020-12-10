@@ -32,7 +32,7 @@ const RandomJokeCard = () => {
     const jokeContent = value && value;
     return (
         <StyledJokeContainer>
-            <StyledJoke>{ jokeContent }</StyledJoke>
+            <StyledJoke>"{ jokeContent }"</StyledJoke>
             <StyledJokeTime>{ publishTime }</StyledJokeTime>
         </StyledJokeContainer>
     );
