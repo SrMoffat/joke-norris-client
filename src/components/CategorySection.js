@@ -5,7 +5,7 @@ import { CategoryContext } from "../state";
 import StyledCategoryCard from "./CategoryCard";
 import { StyledCategoriesSection } from "./styled/Categories";
 
-const CategorySection = ({ loading, searching  }) => {
+const CategorySection = ({ loading, searching }) => {
     const { state: { categories } } = useContext(CategoryContext);
     return (
         <StyledCategoriesSection>

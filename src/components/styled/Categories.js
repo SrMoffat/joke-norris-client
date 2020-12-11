@@ -30,6 +30,9 @@ export const StyledCategoryDetailsContainer = styled.div`
     display: grid;
     grid-template-rows: repeat(2, 1fr);
     justify-self: end;
+    @media only screen and (max-width: 480px) { /* mobile phones */
+        justify-self: start;
+    }
 `;
 export const StyledCategoryLabel = styled.span`
     font-weight: bold;
@@ -62,4 +65,14 @@ export const StyledCategoriesSection = styled.div`
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1rem;
     min-height: 22rem;
+    @media only screen and (max-width: 480px) { /* mobile phones */
+        grid-template-columns: repeat(2, 1fr);
+        width: 24rem;
+    }
+    @media only screen and (max-width: 670px) { /* tablets */
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @media only screen and (max-width: 620px) { /* tablets */
+        grid-template-columns: repeat(2, 1fr);
+    }
 `;

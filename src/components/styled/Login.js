@@ -11,7 +11,12 @@ export const StyledLoginContainer = styled.div`
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
     min-height: 20rem;
-    min-width: 40rem;
+    width: 40rem;
+    @media only screen and (max-width: 480px) { /* mobile phones */
+        width: 29rem;
+        grid-template-columns: 11rem 1fr;
+        grid-gap: 0.4rem;
+    }
 `;
 export const StyledLoginSider = styled.div`
     background: rgba(241, 91, 36);
@@ -21,6 +26,9 @@ export const StyledLoginSider = styled.div`
     grid-template-rows: repeat(2, 1fr);
     border-top-left-radius: .5rem;
     border-bottom-left-radius: .5rem;
+    @media only screen and (max-width: 480px) { /* mobile phones */
+        padding: 1rem;
+    }
 `;
 export const StyledLoginPageTitle = styled.div`
     font-size: 1.3rem;
@@ -36,4 +44,8 @@ export const StyledLoginAppName = styled.div`
 `;
 export const StyledLoginFormContainer = styled.div`
     padding: 1rem;
+    @media only screen and (max-width: 480px) { /* mobile phones */
+        padding: 0.4rem;
+        width: 2rem;
+    }
 `;

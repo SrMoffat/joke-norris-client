@@ -7,6 +7,13 @@ export const SignUpHeader = styled.div`
     height: 5rem;
     text-align: center;
     padding: 1rem;
+    @media only screen and (max-width: 480px) { /* mobile phones */
+        width: 23rem;
+        border: none;
+    }
+    @media only screen and (max-width: 400px) { /* small mobile phones */
+        width: 20rem;
+    }
 `;
 export const SignUpHeaderTitle = styled.div`
     color: #fff;
@@ -28,5 +35,11 @@ export const StyledSignUpContainer = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     min-height: 25rem;
-    min-width: 30rem;
+    width: 30rem;
+    @media only screen and (max-width: 480px) { /* mobile phones */
+        width: 25rem;
+    }
+    @media only screen and (max-width: 400px) { /* small mobile phones */
+        width: 22rem;
+    }
 `;

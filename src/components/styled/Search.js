@@ -3,6 +3,11 @@ import styled from "styled-components";
 export const StyledSearchSection = styled.div`
     justify-self: center;
     align-self: center;
+    display: none; /** Hiding search since functionality is not complete */
+
+    @media only screen and (max-width: 480px) { /* mobile phones */
+        display: none; /** Hiding search since functionality is not complete */
+    }
 `;
 export const StyledSearchInput = styled.input.attrs({
         placeholder: "Search for any text to get jokes",
@@ -17,6 +22,10 @@ export const StyledSearchInput = styled.input.attrs({
 
         &:hover {
             border: 1px solid #ffd0bf;
+    }
+    @media only screen and (max-width: 480px) { /* mobile phones */
+        width: 50px;
+        margin: 0;
     }
 `;
 export const StyledSearchButton = styled.button`

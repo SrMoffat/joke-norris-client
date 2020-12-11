@@ -8,6 +8,7 @@ const SearchInput = ({ changeHandler, focusHandler }) => {
 const SearchButton = ({ query }) => {
     const handleSearchClicked = () => {
         // TODO: Fetch results
+        alert("🛠 Coming soon... 🛠");
     };
     return <StyledSearchButton onClick={handleSearchClicked}>Search</StyledSearchButton>
 };
