@@ -15,6 +15,30 @@ export const StyledJokeCard = styled.div`
         transform: translateY(-.025rem);
         box-shadow: 0rem .3rem .4rem 0rem rgba(0,0,0,0.1);
     }
+    @media only screen and (max-width: 930px) { /* tablets */
+        width: 45rem;
+    }
+    @media only screen and (max-width: 780px) { /* tablets */
+        width: 40rem;
+    }
+    @media only screen and (max-width: 768px) { /* tablets */
+        width: 38rem;
+    }
+    @media only screen and (max-width: 650px) { /* tablets */
+        width: 34rem;
+    }
+    @media only screen and (max-width: 610px) { /* tablets */
+        width: 32rem;
+    }
+    @media only screen and (max-width: 570px) { /* tablets */
+        width: 30rem;
+    }
+    @media only screen and (max-width: 480px) { /* mobile phones */
+        width: 25rem;
+    }
+    @media only screen and (max-width: 450px) { /* mobile phones */
+        width: 20rem;
+    }
 `;
 export const StyledJokeTime = styled.div`
     place-self: end;
@@ -27,6 +51,9 @@ export const StyledJokeText = styled.div`
 export const StyledCategoryJokeHeader = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    @media only screen and (max-width: 480px) { /* mobile phones */
+        grid-template-columns: 19rem 1fr;
+    }
 `;
 export const StyledBackButton = styled.div`
     justify-self: start;
@@ -61,6 +88,12 @@ export const StyledJokeContainer = styled.div`
     padding: 1rem;
     box-shadow: 0rem .1rem .3rem 0rem rgba(0,0,0,0.2);
     width: 35rem;
+    @media only screen and (max-width: 480px) { /* mobile phones */
+        width: 26rem;
+    }
+    @media only screen and (max-width: 620px) { /* tablets */
+        width: 25rem;
+    }
 `;
 export const StyledJoke = styled.div`
     font-size: .85rem;

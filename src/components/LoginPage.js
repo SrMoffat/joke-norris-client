@@ -8,8 +8,8 @@ import { UsernameInput, PasswordInput } from "./styled/Inputs";
 import { StyledLoginButton, SignUpLink } from "./styled/Buttons";
 import { StyledLoginContainer, StyledLoginSider, StyledLoginPageTitle, StyledLoginAppName, StyledLoginFormContainer } from "./styled/Login";
 
-const LoginButton = () => {
-    return <StyledLoginButton>Login</StyledLoginButton>
+const LoginButton = ({ loading }) => {
+    return <StyledLoginButton>{`${loading ? "Loading..." : "Login"}`}</StyledLoginButton>
 };
 
 const LoginPage = () => {
@@ -73,7 +73,7 @@ const LoginPage = () => {
                 <form onSubmit={handleLogin}>
                     <input onChange={handleInputChange} required style={UsernameInput.styles} type={UsernameInput.attrs.type} name={UsernameInput.attrs.name} placeholder={UsernameInput.attrs.placeholder} /><br />
                     <input onChange={handleInputChange} required style={PasswordInput.styles} type={PasswordInput.attrs.type} name={PasswordInput.attrs.name} placeholder={PasswordInput.attrs.placeholder} /><br />
-                    <LoginButton /> or <SignUpLink onClick={takeUserToSignUp}>{`${loading ? "Loading" : "Sign Up"}`}</SignUpLink>
+                    <LoginButton loading={loading} /> or <SignUpLink onClick={takeUserToSignUp}>{`${loading ? "Loading" : "Sign Up"}`}</SignUpLink>
                 </form>
                 <img style={{ marginTop: 100, float: "right", height: 45, width: 45 }} alt="logo" src="/logo.png"/>
             </StyledLoginFormContainer>
