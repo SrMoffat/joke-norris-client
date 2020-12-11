@@ -4,6 +4,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { CategoryContext, UserContext } from "../state";
+import Loader from "./Loader";
 
 import { fetchCategoryJokeQuery } from "../graphql"
 
@@ -20,7 +21,7 @@ const AppContainer = styled.section`
   grid-gap: 1.5rem;
 `;
 const StyledJokeCard = styled.div`
-    min-width: 55rem;
+    width: 55rem;
     min-height: 5rem;
     border: 1px solid #e6e6e6;
     border-radius: .2rem;
@@ -94,7 +95,7 @@ const CategoryAvatar = {
     marginLeft: 40
 };
 const CategoryJoke = () => {
-    const { state: { current }, dispatch } = useContext(CategoryContext);
+    const { state: { current } } = useContext(CategoryContext);
     const { state: { user } } = useContext(UserContext);
     const { category: selected } = useParams();
     const { data, loading, refetch } = useQuery(fetchCategoryJokeQuery, {
@@ -105,9 +106,6 @@ const CategoryJoke = () => {
     const categoryJoke = data?.fetchCategoryJoke;
     const linkStyle = {
         textDecoration: "none"
-    };
-    const fetchNewJoke = () => {
-        refetch();
     };
     return (
         <div>
@@ -130,12 +128,13 @@ const CategoryJoke = () => {
                     </StyledCategoryDetailsContainer>
                 </StyledCategoryJokeHeader>
                 <StyledJokeCard>
+                    { loading && <Loader />}
                     <StyledJokeText>
                         "{ categoryJoke?.value }"
                     </StyledJokeText>
                     <StyledJokeTime>{ moment(categoryJoke?.created_at).fromNow() }</StyledJokeTime>
                 </StyledJokeCard>
-                <FetchNewJokeButton onClick={fetchNewJoke}>New Joke</FetchNewJokeButton>
+                <FetchNewJokeButton onClick={() => refetch()}>New Joke</FetchNewJokeButton>
             </AppContainer>
         </div>
     );

@@ -8,10 +8,10 @@ const StyledJokeSection = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 `;
-const RandomJokeSection = () => {
+const RandomJokeSection = ({ loading }) => {
     return (
         <StyledJokeSection>
-            <RandomJokeCard />
+            <RandomJokeCard loading={loading}/>
             <SearchSection />
         </StyledJokeSection>
     );

@@ -4,6 +4,7 @@ import { useContext } from "react";
 
 import StyledCategoryCard from "./CategoryCard";
 import { CategoryContext } from "../state";
+import Loader from "./Loader";
 
 const StyledCategoriesSection = styled.div`
     box-shadow: 0rem .1rem .3rem 0rem rgba(0,0,0,0.2);
@@ -12,8 +13,9 @@ const StyledCategoriesSection = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1rem;
+    min-height: 22rem;
 `;
-const CategorySection = () => {
+const CategorySection = ({ loading }) => {
     const { state: { categories } } = useContext(CategoryContext);
     return (
         <StyledCategoriesSection>
@@ -22,6 +24,7 @@ const CategorySection = () => {
                     return <StyledCategoryCard key={`${index}-card-${category}`} category={category} />
                 })
             }
+            { loading && <Loader />}
         </StyledCategoriesSection>
     );
 };
