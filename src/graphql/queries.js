@@ -34,3 +34,19 @@ export const fetchCategoryJokeQuery = gql`
     }
   }
 `;
+export const searchForJokes = gql`
+  query searchForJokes($query: String!) {
+    searchForJokes(query: $query) {
+      count
+      results {
+        id
+        url
+        icon_url
+        value
+        created_at
+        updated_at
+      }
+    }
+  }
+`;
+

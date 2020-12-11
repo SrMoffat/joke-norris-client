@@ -1,11 +1,18 @@
 import styled from "styled-components";
 
+import { useState } from "react";
+
+import { useQuery } from "@apollo/client";
+
+import { searchForJokes } from "../graphql";
+
 const StyledSearchSection = styled.div`
     justify-self: center;
     align-self: center;
 `;
 const StyledSearchInput = styled.input.attrs({
-        placeholder: "Search for any text to get jokes"
+        placeholder: "Search for any text to get jokes",
+        name: "search"
     })`
         margin-right: 1rem;
         padding: .5rem;
@@ -40,23 +47,38 @@ const StyledSearchButton = styled.button`
     }
 `;
 
-const SearchInput = () => {
-    return <StyledSearchInput />
+const SearchInput = ({ changeHandler, focusHandler }) => {
+    return <StyledSearchInput onFocus={focusHandler} onChange={changeHandler}/>
 };
-const SearchButton = () => {
+const SearchButton = ({ query }) => {
+    // const { data, loading, refetch } = useQuery(searchForJokes, {
+    //     variables: {
+    //         query,
+    //     }
+    // });
     const handleSearchClicked = () => {
-        // TODO: SUbmit input value for search
-        // alert("Hey");
+        if(query){
+            // refetch();
+        };
     };
+    // console.log("COND", data);
     return <StyledSearchButton onClick={handleSearchClicked}>Search</StyledSearchButton>
 };
 const SearchSection = () => {
+    const [searchQuery, setSearchQuery] = useState();
+    const [searchFocused, setSearchFocused] = useState(false);
+    const handleSearchInputFocused = () => {
+        setSearchFocused(true);
+    };
+    const handleSearchInputChanged = ({ target }) => {
+        const { value } = target;
+        setSearchQuery(value);
+    };
     return (
         <StyledSearchSection>
-            <SearchInput />
-            <SearchButton />
+            <SearchInput focusHandler={handleSearchInputFocused} changeHandler={handleSearchInputChanged}/>
+            <SearchButton query={searchQuery} />
         </StyledSearchSection>
     );
 };
 export default SearchSection;
-
