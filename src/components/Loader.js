@@ -1,15 +1,6 @@
 import styled from "styled-components";
 
-const StyledLoader = styled.section`
-    /* display: flex;
-    position: absolute;
-    top: 50%;
-    left: 50%; */
-    /* margin-top: 18.75rem;
-    margin-left: 3.125rem; */
-    /* width: 6.25rem;
-    height: 6.25rem; */
-`;
+const StyledLoader = styled.section``;
 const StyledLoaderCircles = styled.div`
     width: 0.625rem;
     height: 0.625rem;

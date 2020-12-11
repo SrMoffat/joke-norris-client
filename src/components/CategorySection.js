@@ -1,20 +1,10 @@
-import styled from "styled-components";
-
 import { useContext } from "react";
 
-import StyledCategoryCard from "./CategoryCard";
-import { CategoryContext } from "../state";
 import Loader from "./Loader";
+import { CategoryContext } from "../state";
+import StyledCategoryCard from "./CategoryCard";
+import { StyledCategoriesSection } from "./styled/Categories";
 
-const StyledCategoriesSection = styled.div`
-    box-shadow: 0rem .1rem .3rem 0rem rgba(0,0,0,0.2);
-    padding: 2rem;
-    border-radius: .1rem;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 1rem;
-    min-height: 22rem;
-`;
 const CategorySection = ({ loading }) => {
     const { state: { categories } } = useContext(CategoryContext);
     return (

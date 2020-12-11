@@ -1,106 +1,13 @@
-import styled from "styled-components";
 import { useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
+
+import { UserContext } from "../state";
 import { loginMutation } from "../graphql";
 import { successMessage, errorMessage } from "../utils";
-import { UserContext } from "../state";
+import { UsernameInput, PasswordInput } from "./styled/Inputs";
+import { StyledLoginButton, SignUpLink } from "./styled/Buttons";
+import { StyledLoginContainer, StyledLoginSider, StyledLoginPageTitle, StyledLoginAppName, StyledLoginFormContainer } from "./styled/Login";
 
-const StyledLoginContainer = styled.div`
-    box-shadow: 0rem .1rem .3rem 0rem rgba(0,0,0,0.2);
-    border-radius: .5rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1rem;
-    min-height: 20rem;
-    min-width: 40rem;
-`;
-const StyledLoginSider = styled.div`
-    background: rgba(241, 91, 36);
-    color: #ffffff;
-    padding: 1rem 2rem;
-    display: grid;
-    grid-template-rows: repeat(2, 1fr);
-    border-top-left-radius: .5rem;
-    border-bottom-left-radius: .5rem;
-`;
-const StyledLoginPageTitle = styled.div`
-    font-size: 1.3rem;
-    font-family: Arial Rounded MT Bold;
-    font-weight: bold;
-    align-self: start;
-`;
-const StyledLoginAppName = styled.div`
-    font-size: 1rem;
-    font-family: Arial Rounded MT Bold;
-    font-weight: bold;
-    align-self: end;
-`;
-const StyledLoginFormContainer = styled.div`
-    padding: 1rem;
-`;
-export const InputStyles = {
-    height: "2rem",
-    width: "16rem",
-    margin: ".5rem 0rem",
-    outline: "none",
-    border: ".1rem solid #e6e6e6",
-    borderRadius: ".15rem",
-    paddingLeft: ".5rem"
-};
-const UsernameInput = {
-    attrs: {
-        type: "text",
-        name: "username",
-        placeholder: "Username",
-    },
-    styles: {
-       ...InputStyles
-    }
-};
-const PasswordInput = {
-    attrs: {
-        type: "password",
-        name: "password",
-        placeholder: "Password",
-    },
-    styles: {
-        ...InputStyles
-    }
-};
-export const StyledLoginButton = styled.button`
-    padding: .5rem;
-    margin-top: .5rem;
-    margin-right: .5rem;
-    width: 5rem;
-    border: 1px solid #F15B24;
-    border-radius: .15rem;
-    color: #F15B24;
-    background: #fff;
-    cursor: pointer;
-    user-select: none;
-    outline: none;
-    transition: all .1s;
-
-    &:hover {
-        transform: translateY(-.1rem);
-        box-shadow: 0rem .3rem .4rem 0rem rgba(0,0,0,0.2);
-    }
-    &:active {
-        transform: translateY(.05rem);
-        box-shadow: 0rem .2rem .2rem 0rem rgba(0,0,0,0.2);
-    }
-`;
-export const SignUpLink = styled.a`
-    text-decoration: none;
-    color: #F15B24;
-    font-size: .8rem;
-    margin-left: .3rem;
-    cursor: pointer;
-`
 const LoginButton = () => {
     return <StyledLoginButton>Login</StyledLoginButton>
 };
@@ -116,6 +23,7 @@ const LoginPage = () => {
         const newState = { ...values, [name]: value }
         setValues(newState);
     };
+
     const handleLogin = async event => {
         event.preventDefault();
         if(!password || !username){
@@ -150,9 +58,11 @@ const LoginPage = () => {
             }
         };
     };
+
     const takeUserToSignUp = () => {
         window.location = "/signup";
     };
+
     return (
         <StyledLoginContainer>
             <StyledLoginSider>
