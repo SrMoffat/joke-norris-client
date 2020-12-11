@@ -47,7 +47,7 @@ function App() {
     <AppWrapper>
       <NavBar/>
        <AppContainer>
-        <RandomJokeSection loading={randomJokeLoading}/>
+        <RandomJokeSection loading={randomJokeLoading} />
         <CategorySection loading={loading} />
        </AppContainer>
     </AppWrapper>

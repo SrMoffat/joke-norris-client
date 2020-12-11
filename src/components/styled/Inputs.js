@@ -1,6 +1,3 @@
-import styled from "styled-components";
-
-
 const InputStyles = {
     height: "2rem",
     width: "16rem",

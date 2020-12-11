@@ -1,8 +1,4 @@
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
-
-
-import { searchForJokes } from "../graphql";
 import { StyledSearchSection, StyledSearchInput, StyledSearchButton } from "./styled/Search";
 
 const SearchInput = ({ changeHandler, focusHandler }) => {
@@ -10,29 +6,24 @@ const SearchInput = ({ changeHandler, focusHandler }) => {
 };
 
 const SearchButton = ({ query }) => {
-    // const { data, loading, refetch } = useQuery(searchForJokes, {
-    //     variables: {
-    //         query,
-    //     }
-    // });
     const handleSearchClicked = () => {
-        if(query){
-            // refetch();
-        };
+        // TODO: Fetch results
     };
-    // console.log("COND", data);
     return <StyledSearchButton onClick={handleSearchClicked}>Search</StyledSearchButton>
 };
 const SearchSection = () => {
     const [searchQuery, setSearchQuery] = useState();
-    const [searchFocused, setSearchFocused] = useState(false);
+    // const [searchFocused, setSearchFocused] = useState(false);
+
     const handleSearchInputFocused = () => {
-        setSearchFocused(true);
+        // setSearchFocused(true);
     };
+
     const handleSearchInputChanged = ({ target }) => {
         const { value } = target;
         setSearchQuery(value);
     };
+
     return (
         <StyledSearchSection>
             <SearchInput focusHandler={handleSearchInputFocused} changeHandler={handleSearchInputChanged}/>

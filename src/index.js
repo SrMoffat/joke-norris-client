@@ -1,4 +1,3 @@
-import dotenv from "dotenv";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
@@ -14,9 +13,10 @@ import App from './App';
 import { UserContextProvider, CategoryContextProvider, JokeContextProvider } from "./state";
 
 import './index.css';
+require('dotenv').config();
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/" // TODO: Add to .env
+  uri: process.env.REACT_APP_SERVER_URL
 });
 const client = new ApolloClient({
   link: httpLink,
