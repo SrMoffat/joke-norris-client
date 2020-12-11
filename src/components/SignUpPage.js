@@ -1,83 +1,28 @@
-import styled from "styled-components";
 import { useState } from "react";
-
 import { useMutation } from "@apollo/client";
 
+import Loader from "./Loader";
 import { signUpMutation } from "../graphql";
 import { successMessage, errorMessage } from "../utils";
-import { InputStyles, StyledLoginButton, SignUpLink }from "./LoginPage";
-import Loader from "./Loader";
+import { StyledLoginButton, SignUpLink } from "./styled/Buttons";
+import { UsernameInput, PasswordInput, ConfirmPasswordInput } from "./styled/Inputs";
+import { SignUpHeader, SignUpHeaderTitle, SignUpFormContainer, StyledSignUpContainer} from "./styled/SignUp";
 
-const StyledSignUpContainer = styled.div`
-    box-shadow: 0rem .1rem .3rem 0rem rgba(0,0,0,0.2);
-    border-radius: .5rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-height: 25rem;
-    min-width: 30rem;
-`;
-const UsernameInput = {
-    attrs: {
-        type: "text",
-        name: "username",
-        placeholder: "Username",
-    },
-    styles: {
-       ...InputStyles
-    }
-};
-const PasswordInput = {
-    attrs: {
-        type: "password",
-        name: "password",
-        placeholder: "Password",
-    },
-    styles: {
-        ...InputStyles
-    }
-};
-const ConfirmPasswordInput = {
-    ...PasswordInput,
-    attrs: {
-        type: "password",
-        name: "confirmPassword",
-        placeholder: "Confirm Password",
-    }
-};
 const SignUpButton = () => {
     return <StyledLoginButton type="submit">SignUp</StyledLoginButton>
 };
-const SignUpHeader = styled.div`
-    border-top-left-radius: .5rem;
-    border-top-right-radius: .5rem;
-    background-color: #F15B24;
-    height: 5rem;
-    text-align: center;
-    padding: 1rem;
-`;
-const SignUpHeaderTitle = styled.div`
-    color: #fff;
-    font-family: Arial Rounded MT Bold;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.5rem;
-`;
-const SignUpFormContainer = styled.div`
-    padding: 1.5rem;
-    margin: auto;
-    text-align: center;
-`;
+
 const SignUpPage = () => {
     const [values, setValues] = useState({});
     const { username, password, confirmPassword } = values;
     const [accountRequestMutation, { loading }] = useMutation(signUpMutation, { errorPolicy: "none", fetchPolicy: "no-cache" });
+
     const handleInputChange = ({ target }) => {
         const { name, value } = target;
         const newState = { ...values, [name]: value }
         setValues(newState);
     };
+
     const handleLogin = async (event) => {
         event.preventDefault();
         if(!password || !username){
@@ -109,9 +54,11 @@ const SignUpPage = () => {
             };
         };
     };
+
     const takeUserToLogin = () => {
         window.location = "/";
     };
+
     return (
         <StyledSignUpContainer>
             <SignUpHeader>

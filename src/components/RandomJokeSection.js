@@ -1,13 +1,8 @@
-import styled from "styled-components";
-
 import SearchSection from "./SearchSection";
 import RandomJokeCard from "./RandomJokeCard";
 
+import { StyledJokeSection } from "./styled/Joke";
 
-const StyledJokeSection = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-`;
 const RandomJokeSection = ({ loading }) => {
     return (
         <StyledJokeSection>
