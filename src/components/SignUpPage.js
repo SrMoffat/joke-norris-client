@@ -6,6 +6,7 @@ import { useMutation } from "@apollo/client";
 import { signUpMutation } from "../graphql";
 import { successMessage, errorMessage } from "../utils";
 import { InputStyles, StyledLoginButton, SignUpLink }from "./LoginPage";
+import Loader from "./Loader";
 
 const StyledSignUpContainer = styled.div`
     box-shadow: 0rem .1rem .3rem 0rem rgba(0,0,0,0.2);
@@ -124,6 +125,7 @@ const SignUpPage = () => {
                     <input required onChange={handleInputChange} style={ConfirmPasswordInput.styles} type={ConfirmPasswordInput.attrs.type} name={ConfirmPasswordInput.attrs.name} placeholder={ConfirmPasswordInput.attrs.placeholder} /><br />
                     <SignUpButton /> or <SignUpLink onClick={takeUserToLogin}>Login</SignUpLink>
                 </form>
+                { loading && <Loader />}
             </SignUpFormContainer>
         </StyledSignUpContainer>
     );

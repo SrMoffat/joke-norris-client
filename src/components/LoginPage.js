@@ -5,7 +5,6 @@ import { loginMutation } from "../graphql";
 import { successMessage, errorMessage } from "../utils";
 import { UserContext } from "../state";
 
-
 const StyledLoginContainer = styled.div`
     box-shadow: 0rem .1rem .3rem 0rem rgba(0,0,0,0.2);
     border-radius: .5rem;
@@ -164,10 +163,9 @@ const LoginPage = () => {
                 <form onSubmit={handleLogin}>
                     <input onChange={handleInputChange} required style={UsernameInput.styles} type={UsernameInput.attrs.type} name={UsernameInput.attrs.name} placeholder={UsernameInput.attrs.placeholder} /><br />
                     <input onChange={handleInputChange} required style={PasswordInput.styles} type={PasswordInput.attrs.type} name={PasswordInput.attrs.name} placeholder={PasswordInput.attrs.placeholder} /><br />
-                    <LoginButton /> or <SignUpLink onClick={takeUserToSignUp}>Sign Up</SignUpLink>
+                    <LoginButton /> or <SignUpLink onClick={takeUserToSignUp}>{`${loading ? "Loading" : "Sign Up"}`}</SignUpLink>
                 </form>
                 <img style={{ marginTop: 100, float: "right", height: 45, width: 45 }} alt="logo" src="/logo.png"/>
-           
             </StyledLoginFormContainer>
         </StyledLoginContainer>
     );

@@ -3,6 +3,7 @@ import moment from "moment";
 
 import { useContext } from "react";
 import { JokeContext } from "../state";
+import Loader from "./Loader";
 
 const StyledJokeContainer = styled.div`
     justify-self: start;
@@ -25,7 +26,7 @@ const StyledJokeTime = styled.div`
     color: #F15B24;
 `;
 
-const RandomJokeCard = () => {
+const RandomJokeCard = ({ loading }) => {
     const { state: { joke } } = useContext(JokeContext);
     const { value, created_at } = joke;
     const publishTime = created_at && moment(created_at).fromNow();
@@ -34,6 +35,7 @@ const RandomJokeCard = () => {
         <StyledJokeContainer>
             <StyledJoke>"{ jokeContent }"</StyledJoke>
             <StyledJokeTime>{ publishTime }</StyledJokeTime>
+            { loading && <Loader />}
         </StyledJokeContainer>
     );
 };
